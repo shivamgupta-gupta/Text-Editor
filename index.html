@@ -1,0 +1,44 @@
+<html>
+<head>
+	<title>Editor</title>
+	<script type="text/javascript">
+		
+		function enableEditMode(){
+			tf.document.designMode = "On";
+		}
+		function execCmd(cmd){
+			tf.document.execCommand(cmd, false, null);
+			tf.document.execCommand(insertParagraph, false, null);
+		}
+		function execCmd(cmd, color){
+			tf.document.execCommand(cmd, false, color);
+		}
+		function print_text(){
+			var text = document.getElementById('tf').contentWindow.document.body.innerHTML;             // get text from the iframe and store it in var text.
+			document.getElementById("display-text").innerHTML = text;									// display text in the div.
+		}	
+				
+	</script>
+</head>
+<body onload="enableEditMode();">																			
+<!-- This function enables the design mode so that we can manipulate the text by execCommand and perform operations such as bold, italic, underline, create link, change color etc. -->
+
+	<div>
+		<button onclick="execCmd('bold');">B</button>
+		<button onclick="execCmd('italic');">I</button>
+		<button onclick="execCmd('underline');">U</button>
+		<button onclick="execCmd('createLink', 'https://facebook.com/');">Add Link</button>
+		<button onclick="execCmd('foreColor', 'rgba(255, 0, 0, 1)');">Change Color to Red</button>
+	</div>
+	<iframe name="tf" id="tf" placeholder="Enter text"></iframe><br />
+	<button onclick="print_text();">Submit</button><br />
+	<p class="container" id="display-text" contenteditable="true"></p>
+
+	<style>
+		p.container{
+			width: 300px;
+			height: 150px;
+		}
+	</style>
+</body>
+</html>	
